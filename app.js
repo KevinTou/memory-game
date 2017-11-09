@@ -5,7 +5,7 @@ var tempArray = [];
 
 // function createGrid() {
 //     for (var row = 0; row < 4; row++) {
-//         for(var column = 0; column < 4; column++) {
+//         for (var column = 0; column < 4; column++) {
 //             containerBox.append(cell);            
 //         }
 //     }
@@ -28,16 +28,19 @@ var tempArray = [];
 // }
 
 function shuffle() {
-    for(var i = originalArray.length - 1; i >= 0; i--) {
+    for (var i = originalArray.length - 1; i >= 0; i--) {
         var randomIndex = Math.floor(Math.random() * originalArray.length);
         var newIndex = originalArray.splice(randomIndex, 1);
         tempArray.push(newIndex);
     }
 }
 
-// function newGame() {
-    
-// }
+function newGame() {
+    for (var i = 0; i < 16; i++) {
+        var returnElement = tempArray.pop();
+        originalArray[i] = returnElement;
+    }
+}
 
 // function countMoves() {
 
