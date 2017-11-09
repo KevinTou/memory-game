@@ -33,9 +33,6 @@ function shuffle() {
         var newIndex = originalArray.splice(randomIndex, 1);
         tempArray.push(newIndex);
     }
-    for(var j = 0; j < 16; j++){
-        console.log("["+j+"] is " + tempArray[j]);
-    }
 }
 
 // function newGame() {
