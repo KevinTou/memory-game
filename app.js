@@ -1,6 +1,7 @@
 var originalArray = ["one", "one", "two", "two", "three", "three", "four", "four", "five", "five", "six", "six", "seven", "seven", "eight", "eight"];
 var tempArray = [];
 
+// Creates a 4x4 grid
 function createGrid() {
     var containerBox = $("#main-container")
     for (var box = 0; box < 16; box++) {
@@ -16,10 +17,12 @@ function createGrid() {
 
 // }
 
-// function clearGrid() {
+// Removes all boxes within the container
+function clearGrid() {
+    $('div.grid').remove();
+}
 
-// }
-
+// Random assigns classes to all boxes within the container
 function shuffle() {
     for (var i = originalArray.length - 1; i >= 0; i--) {
         var randomIndex = Math.floor(Math.random() * originalArray.length);
@@ -31,6 +34,7 @@ function shuffle() {
     });
 }
 
+// Empties out the tempArray and returns all values back into the originalArray
 function newGame() {
     for (var i = 0; i < 16; i++) {
         var returnElement = tempArray.pop();
@@ -42,7 +46,11 @@ function newGame() {
 
 // }
 
+// TODO: Remove testing lines
 $(document).ready(function() {
     createGrid();
     shuffle();
+    console.log(tempArray.length + " " + originalArray.length);
+    newGame();
+    console.log(tempArray.length + " " + originalArray.length);
 });
