@@ -10,9 +10,12 @@
     padding: 7px;
 }
 
+/* TODO: Add "hidden" feature for grid */
 .grid {
 	border: 2px solid #000;
     width: 20%;
     height: 20%;
     margin: auto;
 }
+
+/* TODO: Add backgrounds for each class when "flipped" */

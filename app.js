@@ -10,16 +10,19 @@ function createGrid() {
 }
 
 // function isMatched() {
-
+    // Secondary classes should match 
 // }
 
 // function isFlipped() {
-
+    // Class should be set to hidden as default
+    // If switched to the secondary class and not matched. switch back to default
+    // If a box is clicked, do NOT allow to re-flip
+    // If it's already a match, do not count as a flip
 // }
 
 // Removes all boxes within the container
 function clearGrid() {
-    $('div.grid').remove();
+    $('div.grid').removeClass('one two three four five six seven eight');
 }
 
 // Random assigns classes to all boxes within the container
@@ -53,4 +56,5 @@ $(document).ready(function() {
     console.log(tempArray.length + " " + originalArray.length);
     newGame();
     console.log(tempArray.length + " " + originalArray.length);
+    clearGrid();
 });
