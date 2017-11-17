@@ -1,24 +1,77 @@
 var originalArray = ["one", "one", "two", "two", "three", "three", "four", "four", "five", "five", "six", "six", "seven", "seven", "eight", "eight"];
 var tempArray = [];
+var gameArray = [];
+var initialMove = null;
+var count = 0;
+
+// Creates an object which describes the each grid's behavior
+function Box(grid, number) {
+    this.grid = grid;
+    this.available = false;
+    this.match = false;
+    this.grid.addEventListener('click', this, false);
+    this.hasNumber = number;
+}
+
+// Creates a working array with the Box objects and the randomized pairs
+function buildGameArray() {
+    var boxArray = $('div.grid');
+    for (var i = 0; i < boxArray.length; i++) {
+        gameArray.push(new Box(boxArray[i], tempArray[i]));
+    }
+}
+
+// Flips the box when clicked and checks whether or not it's a match, stops when winning condition is met
+Box.prototype.handleEvent = function (event) {
+    switch (event.type) {
+        case 'click':
+            if (this.available || this.match) {
+                return;
+            }
+            this.available = true;
+            this.grid.classList.add('flip');
+            isMatched(this);
+    }
+}
+
+// Sets the 'matching' behavior for the object
+Box.prototype.matched = function () {
+    this.match = true;
+    this.available = true;
+}
+
+// Resets the object to the default values
+Box.prototype.reset = function () {
+    this.available = false;
+    this.match = false;
+    this.grid.classList.remove('flip');
+}
+
+// Allows the user to choose a box and if they are not 'matched', then reset their values and refresh attempt
+function isMatched(currentMove) {
+    if (initialMove === null) {
+        initialMove = currentMove;
+        return;
+    }
+    if (JSON.stringify(initialMove) === JSON.stringify(currentMove)) {
+        initialMove.matched();
+        currentMove.matched();
+        countMoves();
+    } else {
+        initialMove.reset();
+        currentMove.reset();
+        countMoves();
+    }
+    initialMove = null;
+}
 
 // Creates a 4x4 grid
 function createGrid() {
     var containerBox = $("#main-container")
     for (var box = 0; box < 16; box++) {
-        containerBox.append('<div class="grid"></div>');            
+        containerBox.append('<div class="grid"></div>');
     }
 }
-
-// function isMatched() {
-    // Secondary classes should match 
-// }
-
-// function isFlipped() {
-    // Class should be set to hidden as default
-    // If switched to the secondary class and not matched. switch back to default
-    // If a box is clicked, do NOT allow to re-flip
-    // If it's already a match, do not count as a flip
-// }
 
 // Removes all boxes within the container
 function clearGrid() {
@@ -45,16 +98,15 @@ function newGame() {
     }
 }
 
-// function countMoves() {
-
-// }
+// Keeps track of the count when the player makes an attempt at matching
+function countMoves() {
+    count++;
+    return count;
+}
 
 // TODO: Remove testing lines
-$(document).ready(function() {
+$(document).ready(function () {
     createGrid();
     shuffle();
-    console.log(tempArray.length + " " + originalArray.length);
-    newGame();
-    console.log(tempArray.length + " " + originalArray.length);
-    clearGrid();
+    buildGameArray();
 });
