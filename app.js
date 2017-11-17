@@ -3,6 +3,7 @@ var tempArray = [];
 var gameArray = [];
 var initialMove = null;
 var count = 0;
+var gameWon = 0;
 
 // Creates an object which describes the each grid's behavior
 function Box(grid, number) {
@@ -22,7 +23,7 @@ function buildGameArray() {
 }
 
 // Flips the box when clicked and checks whether or not it's a match, stops when winning condition is met
-Box.prototype.handleEvent = function (event) {
+Box.prototype.handleEvent = function(event) {
     switch (event.type) {
         case 'click':
             if (this.available || this.match) {
@@ -31,17 +32,22 @@ Box.prototype.handleEvent = function (event) {
             this.available = true;
             this.grid.classList.add('flip');
             isMatched(this);
+            if (gameWon === 8) {
+                setTimeout(function () {
+                    alert('Congratulations!');
+                }, 1000); 
+            }
     }
 }
 
 // Sets the 'matching' behavior for the object
-Box.prototype.matched = function () {
+Box.prototype.matched = function() {
     this.match = true;
     this.available = true;
 }
 
 // Resets the object to the default values
-Box.prototype.reset = function () {
+Box.prototype.reset = function() {
     this.available = false;
     this.match = false;
     this.grid.classList.remove('flip');
@@ -57,9 +63,14 @@ function isMatched(currentMove) {
         initialMove.matched();
         currentMove.matched();
         countMoves();
+        gameWon++;
     } else {
-        initialMove.reset();
-        currentMove.reset();
+        var initial = initialMove;
+        var current = currentMove;
+        setTimeout(function() {
+            initial.reset();
+            current.reset();
+        }, 650);
         countMoves();
     }
     initialMove = null;
@@ -105,7 +116,7 @@ function countMoves() {
 }
 
 // TODO: Remove testing lines
-$(document).ready(function () {
+$(document).ready(function() {
     createGrid();
     shuffle();
     buildGameArray();
