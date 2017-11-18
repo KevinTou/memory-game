@@ -4,6 +4,7 @@ var gameArray = [];
 var initialMove = null;
 var count = 0;
 var gameWon = 0;
+var resetGame = document.getElementById("new-game");
 
 // Creates an object which describes the each grid's behavior
 function Box(grid, number) {
@@ -32,9 +33,14 @@ Box.prototype.handleEvent = function(event) {
             this.available = true;
             this.grid.classList.add('flip');
             isMatched(this);
+            document.getElementById("moves").innerHTML = "Moves: " + count;
             if (gameWon === 8) {
+                // Switch with modal
                 setTimeout(function () {
                     alert('Congratulations!');
+                    restartGame();
+                    startGame();
+                    
                 }, 1000); 
             }
     }
@@ -70,7 +76,7 @@ function isMatched(currentMove) {
         setTimeout(function() {
             initial.reset();
             current.reset();
-        }, 650);
+        }, 400);
         countMoves();
     }
     initialMove = null;
@@ -86,7 +92,7 @@ function createGrid() {
 
 // Removes all boxes within the container
 function clearGrid() {
-    $('div.grid').removeClass('one two three four five six seven eight');
+    $('div.grid').removeClass('one two three four five six seven eight flip');
 }
 
 // Random assigns classes to all boxes within the container
@@ -115,9 +121,22 @@ function countMoves() {
     return count;
 }
 
+function startGame() {
+    shuffle();
+    buildGameArray();
+}
+
+function restartGame() {
+    clearGrid();
+    newGame();
+    shuffle();
+    gameWon = 0;
+    count = 0;
+    initialMove = null;
+}
+
 // TODO: Remove testing lines
 $(document).ready(function() {
     createGrid();
-    shuffle();
-    buildGameArray();
+    startGame();
 });
