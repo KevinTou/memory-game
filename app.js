@@ -40,7 +40,7 @@ Box.prototype.handleEvent = function(event) {
                     alert('Congratulations!');
                     restartGame();
                     startGame();
-                    
+                    document.getElementById("moves").innerHTML = "Moves: " + count;
                 }, 1000); 
             }
     }
