@@ -5,6 +5,10 @@ var initialMove = null;
 var count = 0;
 var gameWon = 0;
 var resetGame = document.getElementById("new-game");
+var time = 0;
+var timeStart = 0;
+var timeEnd = 0;
+var numberOfStars = 0;
 
 // Creates an object which describes the each grid's behavior
 function Box(grid, number) {
@@ -27,6 +31,10 @@ function buildGameArray() {
 Box.prototype.handleEvent = function(event) {
     switch (event.type) {
         case 'click':
+            if (time === 0) {
+                timeStart = Date.now();
+                time = 1;
+            }
             if (this.available || this.match) {
                 return;
             }
@@ -34,13 +42,18 @@ Box.prototype.handleEvent = function(event) {
             this.grid.classList.add('flip');
             isMatched(this);
             document.getElementById("moves").innerHTML = "Moves: " + count;
+            starRating();
             if (gameWon === 8) {
+                timeEnd = Date.now();
+                time = 0;
+                console.log('Time took: ' + Math.round((timeEnd - timeStart) / 1000) + ' seconds!');
                 // Switch with modal
                 setTimeout(function () {
                     alert('Congratulations!');
                     restartGame();
                     startGame();
                     document.getElementById("moves").innerHTML = "Moves: " + count;
+                    starRating();
                 }, 1000); 
             }
     }
@@ -121,6 +134,19 @@ function countMoves() {
     return count;
 }
 
+function starRating() {
+    if (count < 14) {
+        document.getElementById("star-rating").innerHTML = "Rating: * * *"; 
+        numberOfStars = 3;       
+    } else if (count >= 14 && count <= 19) {
+        document.getElementById("star-rating").innerHTML = "Rating: * *";
+        numberOfStars = 2;
+    } else {
+        document.getElementById("star-rating").innerHTML = "Rating: *";
+        numberOfStars = 1;
+    }
+}
+
 function startGame() {
     shuffle();
     buildGameArray();
@@ -135,7 +161,6 @@ function restartGame() {
     initialMove = null;
 }
 
-// TODO: Remove testing lines
 $(document).ready(function() {
     createGrid();
     startGame();

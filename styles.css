@@ -1,4 +1,4 @@
-#main-container {    
+#main-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -14,12 +14,12 @@
     width: 360px;
     margin: auto;
     position: relative;
-    border: 2px solid #000;
     padding: 7px;
 }
 
-#header-title {
+#header-title, h1 {
     text-align: center;
+    margin-top: 0px;
 }
 
 #new-game {
@@ -32,7 +32,11 @@
     position: absolute;
     bottom: 5px;
     left: 5px;
-    border: 1px solid black;
+}
+
+#moves, #star-rating {
+    float: left;
+    padding-right: 10px;
 }
 
 .grid {
