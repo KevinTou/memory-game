@@ -10,6 +10,7 @@
     <title>Memory Game</title>
 </head>
 <body>
+    <!-- The header (which includes the new game button and rating system) -->
     <header id="main-header">
         <div id="header-title">
             <h1>Memory Game</h1>
@@ -19,8 +20,17 @@
             <div id="star-rating">Rating: * * *</div>
         </div>
         <div id="timer"></div>
-        <button id="new-game">New Game</button>
+        <button id="new-game" class="restart-game">New Game</button>
     </header>
+
+    <!-- The container for the grid -->
     <div id="main-container"></div>
+
+    <!-- Modal for after a player wins -->
+    <div id="modal">
+        <p>Congratulations!</p>
+        <div class="stats"></div>
+        <button id="another-game" class="restart-game">New Game</button>
+    </div>
 </body>
 </html>>
