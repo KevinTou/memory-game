@@ -1,14 +1,20 @@
+// Game variables
 var originalArray = ["one", "one", "two", "two", "three", "three", "four", "four", "five", "five", "six", "six", "seven", "seven", "eight", "eight"];
 var tempArray = [];
 var gameArray = [];
 var initialMove = null;
-var count = 0;
 var gameWon = 0;
 var resetGame = document.getElementById("new-game");
+
+// Rating variables
+var count = 0;
 var time = 0;
 var timeStart = 0;
 var timeEnd = 0;
 var numberOfStars = 0;
+
+// Modal variables
+var modal = document.getElementById("game-modal");
 
 // Creates an object which describes the each grid's behavior
 function Box(grid, number) {
@@ -51,7 +57,6 @@ Box.prototype.handleEvent = function(event) {
                 setTimeout(function () {
                     alert('Congratulations!');
                     restartGame();
-                    startGame();
                     document.getElementById("moves").innerHTML = "Moves: " + count;
                     starRating();
                 }, 1000); 
@@ -155,7 +160,7 @@ function startGame() {
 function restartGame() {
     clearGrid();
     newGame();
-    shuffle();
+    startGame();
     gameWon = 0;
     count = 0;
     initialMove = null;
