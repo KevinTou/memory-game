@@ -4,7 +4,6 @@ var tempArray = [];
 var gameArray = [];
 var initialMove = null;
 var gameWon = 0;
-var resetGame = document.getElementById("new-game");
 
 // Rating variables
 var count = 0;
@@ -14,7 +13,7 @@ var timeEnd = 0;
 var numberOfStars = 0;
 
 // Modal variables
-var modal = document.getElementById("game-modal");
+// var modal = document.getElementById("game-modal");
 
 // Creates an object which describes the each grid's behavior
 function Box(grid, number) {
@@ -59,7 +58,7 @@ Box.prototype.handleEvent = function(event) {
                     restartGame();
                     document.getElementById("moves").innerHTML = "Moves: " + count;
                     starRating();
-                }, 1000); 
+                }, 1000);
             }
     }
 }
@@ -141,8 +140,8 @@ function countMoves() {
 
 function starRating() {
     if (count < 14) {
-        document.getElementById("star-rating").innerHTML = "Rating: * * *"; 
-        numberOfStars = 3;       
+        document.getElementById("star-rating").innerHTML = "Rating: * * *";
+        numberOfStars = 3;
     } else if (count >= 14 && count <= 19) {
         document.getElementById("star-rating").innerHTML = "Rating: * *";
         numberOfStars = 2;
@@ -150,6 +149,13 @@ function starRating() {
         document.getElementById("star-rating").innerHTML = "Rating: *";
         numberOfStars = 1;
     }
+}
+
+function reset() {
+    restartGame();
+    time = 0;
+    document.getElementById("moves").innerHTML = "Moves: " + count;
+    starRating();
 }
 
 function startGame() {

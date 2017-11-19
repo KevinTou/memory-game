@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel=stylesheet type="text/css" href="styles.css">
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script type="text/javascript" src="app.js"></script>
+    <link rel=stylesheet type="text/css" href="styles.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
     <title>Memory Game</title>
 </head>
+
 <body>
     <!-- The header (which includes the new game button and rating system) -->
     <header id="main-header">
@@ -20,7 +22,7 @@
             <div id="star-rating">Rating: * * *</div>
         </div>
         <div id="timer"></div>
-        <button id="new-game" class="restart-game">New Game</button>
+        <button id="new-game" onclick="reset()">New Game</button>
     </header>
 
     <!-- The container for the grid -->
@@ -28,9 +30,12 @@
 
     <!-- Modal for after a player wins -->
     <div id="game-modal" class="modal">
-        <p>Congratulations!</p>
-        <div class="stats"></div>
-        <button id="another-game" class="restart-game">New Game</button>
+        <div class="modal-content">
+            <p>Congratulations!</p>
+            <div class="stats"></div>
+            <button id="another-game" onclick="reset()">New Game</button>
+        </div>
     </div>
 </body>
+
 </html>>
