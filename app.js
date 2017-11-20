@@ -12,9 +12,6 @@ var timeStart = 0;
 var timeEnd = 0;
 var numberOfStars = 0;
 
-// Modal variables
-// var modal = document.getElementById("game-modal");
-
 // Creates an object which describes the each grid's behavior
 function Box(grid, number) {
     this.grid = grid;
@@ -51,13 +48,10 @@ Box.prototype.handleEvent = function(event) {
             if (gameWon === 8) {
                 timeEnd = Date.now();
                 time = 0;
-                console.log('Time took: ' + Math.round((timeEnd - timeStart) / 1000) + ' seconds!');
-                // Switch with modal
+                console.log();
+                document.getElementById("stats").innerHTML = "It took " + Math.round((timeEnd - timeStart) / 1000) + " seconds and " + count + " moves! You got " + numberOfStars + " stars!";
                 setTimeout(function () {
-                    alert('Congratulations!');
-                    restartGame();
-                    document.getElementById("moves").innerHTML = "Moves: " + count;
-                    starRating();
+                    document.getElementById("game-modal").style.display = "block";
                 }, 1000);
             }
     }
@@ -151,11 +145,9 @@ function starRating() {
     }
 }
 
+// Refreshes the page
 function reset() {
-    restartGame();
-    time = 0;
-    document.getElementById("moves").innerHTML = "Moves: " + count;
-    starRating();
+    location.reload();
 }
 
 function startGame() {
