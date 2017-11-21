@@ -146,25 +146,12 @@ function starRating() {
 }
 
 // Refreshes the page
-function reset() {
+function resetGame() {
     location.reload();
-}
-
-function startGame() {
-    shuffle();
-    buildGameArray();
-}
-
-function restartGame() {
-    clearGrid();
-    newGame();
-    startGame();
-    gameWon = 0;
-    count = 0;
-    initialMove = null;
 }
 
 $(document).ready(function() {
     createGrid();
-    startGame();
+    shuffle();
+    buildGameArray();
 });
