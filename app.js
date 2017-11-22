@@ -11,6 +11,8 @@ var time = 0;
 var timeStart = 0;
 var timeEnd = 0;
 var numberOfStars = 0;
+var currentTime = 0;
+var clock;
 
 // Creates an object which describes the each grid's behavior
 function Box(grid, number) {
@@ -36,6 +38,7 @@ Box.prototype.handleEvent = function(event) {
             if (time === 0) {
                 timeStart = Date.now();
                 time = 1;
+                clock = setInterval(timer, 500);
             }
             if (this.available || this.match) {
                 return;
@@ -48,7 +51,7 @@ Box.prototype.handleEvent = function(event) {
             if (gameWon === 8) {
                 timeEnd = Date.now();
                 time = 0;
-                console.log();
+                clearInterval(clock);
                 document.getElementById("stats").innerHTML = "It took " + Math.round((timeEnd - timeStart) / 1000) + " seconds and " + count + " moves! You got " + numberOfStars + " stars!";
                 setTimeout(function () {
                     document.getElementById("game-modal").style.display = "block";
@@ -132,6 +135,7 @@ function countMoves() {
     return count;
 }
 
+// Updates the star rating as the user clicks
 function starRating() {
     if (count < 14) {
         document.getElementById("star-rating").innerHTML = "Rating: * * *";
@@ -143,6 +147,11 @@ function starRating() {
         document.getElementById("star-rating").innerHTML = "Rating: *";
         numberOfStars = 1;
     }
+}
+
+function timer() {
+    currentTime = Date.now();
+    document.getElementById("clock").innerHTML = "Time: " + Math.round((currentTime - timeStart) / 1000);
 }
 
 // Refreshes the page

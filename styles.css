@@ -34,7 +34,7 @@
     left: 5px;
 }
 
-#moves, #star-rating {
+#moves, #star-rating, #clock {
     float: left;
     padding-right: 10px;
 }
