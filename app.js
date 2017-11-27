@@ -1,18 +1,18 @@
 // Game variables
-var originalArray = ["one", "one", "two", "two", "three", "three", "four", "four", "five", "five", "six", "six", "seven", "seven", "eight", "eight"];
-var tempArray = [];
-var gameArray = [];
-var initialMove = null;
-var gameWon = 0;
+let originalArray = ["one", "one", "two", "two", "three", "three", "four", "four", "five", "five", "six", "six", "seven", "seven", "eight", "eight"];
+let tempArray = [];
+let gameArray = [];
+let initialMove = null;
+let gameWon = 0;
 
 // Rating variables
-var count = 0;
-var time = 0;
-var timeStart = 0;
-var timeEnd = 0;
-var numberOfStars = 0;
-var currentTime = 0;
-var clock;
+let count = 0;
+let time = 0;
+let timeStart = 0;
+let timeEnd = 0;
+let numberOfStars = 0;
+let currentTime = 0;
+let clock;
 
 // Creates an object which describes the each grid's behavior
 function Box(grid, number) {
@@ -35,11 +35,13 @@ function buildGameArray() {
 Box.prototype.handleEvent = function(event) {
     switch (event.type) {
         case 'click':
+            // Starts both timers for the game
             if (time === 0) {
                 timeStart = Date.now();
                 time = 1;
                 clock = setInterval(timer, 500);
             }
+            // Checks to see if the box is already flipped or matched and if it isn't, then continue
             if (this.available || this.match) {
                 return;
             }
@@ -48,6 +50,7 @@ Box.prototype.handleEvent = function(event) {
             isMatched(this);
             document.getElementById("moves").innerHTML = "Moves: " + count;
             starRating();
+            // Checks for the winning condition, and stops the game by showing the modal
             if (gameWon === 8) {
                 timeEnd = Date.now();
                 time = 0;
@@ -75,15 +78,18 @@ Box.prototype.reset = function() {
 
 // Allows the user to choose a box and if they are not 'matched', then reset their values and refresh attempt
 function isMatched(currentMove) {
+    // Allows the initial move to be saved for comparison
     if (initialMove === null) {
         initialMove = currentMove;
         return;
     }
+    // Compares the two objects' properties (converted to strings) and see if they match
     if (JSON.stringify(initialMove) === JSON.stringify(currentMove)) {
         initialMove.matched();
         currentMove.matched();
         countMoves();
         gameWon++;
+    // Otherwise, reset the object's properties to their default values
     } else {
         var initial = initialMove;
         var current = currentMove;
@@ -93,6 +99,7 @@ function isMatched(currentMove) {
         }, 400);
         countMoves();
     }
+    // Resets the initial move for a new comparison
     initialMove = null;
 }
 
@@ -111,11 +118,13 @@ function clearGrid() {
 
 // Random assigns classes to all boxes within the container
 function shuffle() {
+    // Random selects an index and removes it from the originalArray, then puts it into the tempArray
     for (var i = originalArray.length - 1; i >= 0; i--) {
         var randomIndex = Math.floor(Math.random() * originalArray.length);
         var newIndex = originalArray.splice(randomIndex, 1);
         tempArray.push(newIndex[0]);
     }
+    // Adds the shuffled classes to each of the boxes
     $('div.grid').each(function (index) {
         $(this).addClass(tempArray[index]);
     });
@@ -149,6 +158,7 @@ function starRating() {
     }
 }
 
+// Called on by the setInterval for a live game timer
 function timer() {
     currentTime = Date.now();
     document.getElementById("clock").innerHTML = "Time: " + Math.round((currentTime - timeStart) / 1000);
