@@ -35,8 +35,9 @@
 }
 
 #moves, #star-rating, #clock {
-    float: left;
+    display: inline-block;
     padding-right: 10px;
+    font-size: 14px;
 }
 
 .modal {
@@ -100,4 +101,14 @@
 
 .eight.flip {
     background-color: brown;
+}
+
+@media screen and (max-width: 360px) {
+    #main-container {
+        width: 300px;
+        height: 300px;
+    }
+    #main-header {
+        width: 300px;
+    }
 }
